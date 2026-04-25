@@ -32,38 +32,6 @@
             max-width: 1200px;
         }
 
-        /* Dashboard Cards */
-        .stat-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 15px 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            border: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .stat-info h3 { margin: 0; font-size: 1.6rem; font-weight: 700; color: #2c3e50; }
-        .stat-info p { margin: 0; font-size: 0.85rem; color: #8e9ca8; font-weight: 600; text-transform: uppercase;}
-
-        /* Quick Filters */
-        .filter-btn {
-            border: 1px solid #eaecf0;
-            background: #fff;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: #4a5568;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: #2c3e50;
-            color: #fff;
-            border-color: #2c3e50;
-        }
-
         /* Calendar Styling */
         .fc-toolbar-title { font-weight: 700 !important; color: #1a252f; font-size: 1.5em !important; }
         .fc-button-primary { 
@@ -83,22 +51,28 @@
         th.fc-day-fri { background-color: #cce5ff !important; } 
         th.fc-day-sat { background-color: #e5ccff !important; } 
 
-        /* Event Items */
+        /* Event Items & Interactive Days */
         .fc-event { 
             cursor: pointer; padding: 4px 6px; border-radius: 6px; border: none;
             font-size: 0.8em; font-weight: 500; color: #fff !important;
             transition: transform 0.2s ease;
         }
         .fc-event:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); z-index: 5 !important; }
+        .fc-daygrid-day:hover { background-color: rgba(0,0,0,0.01); cursor: pointer; } /* Cursor เปลี่ยนตอนชี้ช่องว่าง */
 
         /* Modal Redesign */
         .modal-content { border-radius: 20px; border: none; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
         .modal-header { border-bottom: none; padding: 25px 25px 10px 25px; }
         .modal-title { font-weight: 700; color: #1a252f; font-size: 1.4rem;}
         .modal-body { padding: 15px 25px 30px 25px; }
-        .platform-badge { padding: 6px 15px; border-radius: 20px; font-size: 0.85em; font-weight: 600; color: white; }
         .desc-box { background: #f8f9fa; border-radius: 12px; padding: 15px; font-size: 0.95em; color: #4a5568; white-space: pre-wrap; }
         
+        /* Form Inputs */
+        .form-control { border-radius: 10px; padding: 10px 15px; border: 1px solid #e0e0e0; }
+        .form-control:focus { box-shadow: none; border-color: #2c3e50; }
+        .btn-save { background: #2c3e50; color: white; border-radius: 10px; padding: 10px; font-weight: 600; border: none; width: 100%; transition: 0.2s; }
+        .btn-save:hover { background: #1a252f; }
+
         #loader { text-align: center; padding: 50px; color: #8e9ca8; }
     </style>
 </head>
@@ -108,30 +82,14 @@
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div>
             <h2 class="mb-0" style="font-weight: 700; color: #1a252f;">⚡️ Marketing Hub</h2>
-            <p class="text-muted mb-0">ตารางแคมเปญและคอนเทนต์</p>
+            <p class="text-muted mb-0">คลิกที่ปฏิทินเพื่อเพิ่มโน้ตใหม่ได้เลย</p>
         </div>
-        <div class="d-flex gap-3">
-            <div class="stat-card">
-                <div style="font-size: 2rem;">🎯</div>
-                <div class="stat-info"><h3 id="totalTasks">0</h3><p>Total Tasks</p></div>
-            </div>
-            <div class="stat-card">
-                <div style="font-size: 2rem;">📱</div>
-                <div class="stat-info"><h3 id="activePlatforms">0</h3><p>Platforms</p></div>
-            </div>
-        </div>
+        <button class="btn btn-light shadow-sm" onclick="calendar.refetchEvents()" style="border-radius: 10px; font-weight: 500;">
+            🔄 รีเฟรชข้อมูล
+        </button>
     </div>
 
-    <div class="d-flex gap-2 mb-4 overflow-auto pb-2" id="filterContainer">
-        <button class="filter-btn active" data-platform="all">All Platforms</button>
-    </div>
-
-    <div id="loader">
-        <div class="spinner-border text-primary mb-3" role="status"></div>
-        <div>กำลังโหลดข้อมูลจาก Google Sheets...</div>
-    </div>
-
-    <div id="calendar" style="display: none;"></div>
+    <div id="calendar"></div>
 </div>
 
 <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
@@ -142,15 +100,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="d-flex align-items-center gap-3 mb-4">
-                    <span id="modalPlatform" class="platform-badge"></span>
-                    <span style="color: #a0aec0;">|</span>
-                    <span style="font-size: 0.95em; color: #4a5568;">
+                <div class="mb-3">
+                    <span style="font-size: 1em; color: #4a5568;">
                         👤 <strong>ผู้รับผิดชอบ: </strong><span id="modalAssignee" style="color: #2c3e50;"></span>
                     </span>
                 </div>
                 <h6 style="font-weight: 600; color: #2c3e50; margin-bottom: 10px;">📝 รายละเอียดงาน:</h6>
                 <div class="desc-box" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-start">
+                <h5 class="modal-title">เพิ่มโน้ตใหม่ <span id="displayDate" class="text-primary" style="font-size: 0.8em;"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="inputDate">
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">หัวข้องาน</label>
+                    <input type="text" id="inputTitle" class="form-control" placeholder="พิมพ์ชื่อหัวข้อ...">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">ผู้รับผิดชอบ</label>
+                    <input type="text" id="inputAssignee" class="form-control" placeholder="ระบุชื่อคนทำ...">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold">รายละเอียด / บรีฟ</label>
+                    <textarea id="inputDesc" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม..."></textarea>
+                </div>
+                <button type="button" class="btn-save" id="btnSubmit">บันทึกข้อมูล</button>
             </div>
         </div>
     </div>
@@ -167,89 +150,40 @@
     // ==========================================
     const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYpbBNhtCv8bfIyfvopI24zGXKpyUfuBhWCMsErvxR7I4relWAl3E1MJ1wAaPpzy0/exec";
     
-    let allEventsData = []; 
     let calendar;
 
     document.addEventListener('DOMContentLoaded', function() {
-        fetchData();
-    });
-
-    function fetchData() {
-        fetch(`${GAS_WEB_APP_URL}?action=getEvents`)
-            .then(res => res.json())
-            .then(data => {
-                allEventsData = data;
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('calendar').style.display = 'block';
-                
-                updateDashboard(data);
-                generateFilters(data);
-                initCalendar(data);
-            })
-            .catch(err => {
-                console.error("Fetch Error:", err);
-                document.getElementById('loader').innerHTML = "<span class='text-danger'>เชื่อมต่อล้มเหลว โปรดตรวจสอบ URL ของ GAS อีกครั้ง</span>";
-            });
-    }
-
-    function updateDashboard(data) {
-        document.getElementById('totalTasks').innerText = data.length;
-        const platforms = new Set(data.map(item => item.extendedProps.platform.trim().toLowerCase()));
-        document.getElementById('activePlatforms').innerText = platforms.size;
-    }
-
-    function generateFilters(data) {
-        const container = document.getElementById('filterContainer');
-        const platforms = [...new Set(data.map(item => item.extendedProps.platform.trim()))].filter(Boolean);
-        
-        platforms.forEach(platform => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn';
-            btn.setAttribute('data-platform', platform);
-            btn.innerText = platform;
-            btn.onclick = (e) => applyFilter(e, platform);
-            container.appendChild(btn);
-        });
-
-        container.querySelector('[data-platform="all"]').onclick = (e) => applyFilter(e, 'all');
-    }
-
-    function applyFilter(e, platform) {
-        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
-
-        let filteredData = allEventsData;
-        if (platform !== 'all') {
-            filteredData = allEventsData.filter(item => item.extendedProps.platform.trim() === platform);
-        }
-
-        calendar.removeAllEventSources();
-        calendar.addEventSource(filteredData);
-    }
-
-    function initCalendar(eventsData) {
         const calendarEl = document.getElementById('calendar');
         const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+        const addModal = new bootstrap.Modal(document.getElementById('addModal'));
 
         calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            events: eventsData,
+            locale: 'th',
             headerToolbar: {
                 left: 'title',
                 right: 'prev,next today' 
+            },
+            // ดึงข้อมูลแบบ Real-time เวลาเปลี่ยนเดือน หรือกด Refresh
+            events: function(info, successCallback, failureCallback) {
+                fetch(`${GAS_WEB_APP_URL}?action=getEvents`)
+                    .then(res => res.json())
+                    .then(data => successCallback(data))
+                    .catch(err => failureCallback(err));
             },
             dayMaxEvents: 3, 
             moreLinkContent: function(arg) {
                 return `+ ดูอีก ${arg.num} งาน`;
             },
+            
+            // 1. ระบบ Hover (ชี้ดูข้อมูล - ตัด Platform ออก)
             eventDidMount: function(info) {
                 tippy(info.el, {
                     content: `
                         <div style="text-align:left; font-family:'Prompt';">
                             <strong style="font-size: 1.1em; color: #fff;">${info.event.title}</strong><br>
                             <div style="margin-top: 5px; color: #e2e8f0; font-size: 0.85em; font-weight:300;">
-                                👤 ${info.event.extendedProps.assignee}<br>
-                                📱 ${info.event.extendedProps.platform}
+                                👤 ${info.event.extendedProps.assignee}
                             </div>
                         </div>
                     `,
@@ -259,20 +193,63 @@
                     animation: 'scale'
                 });
             },
+            
+            // 2. ระบบ Click งาน (ดูรายละเอียดเต็ม)
             eventClick: function(info) {
                 const props = info.event.extendedProps;
                 document.getElementById('modalTitle').innerText = info.event.title;
-                document.getElementById('modalPlatform').innerText = props.platform;
-                document.getElementById('modalPlatform').style.backgroundColor = info.event.backgroundColor;
                 document.getElementById('modalAssignee').innerText = props.assignee;
                 document.getElementById('modalDescription').innerText = props.description || 'ไม่มีรายละเอียดเพิ่มเติม';
-                
                 eventModal.show();
+            },
+
+            // 3. ระบบ Click ช่องว่าง (เพิ่มงานใหม่)
+            dateClick: function(info) {
+                document.getElementById('inputDate').value = info.dateStr;
+                document.getElementById('displayDate').innerText = `(${info.dateStr})`;
+                // เคลียร์ฟอร์มเก่า
+                document.getElementById('inputTitle').value = "";
+                document.getElementById('inputAssignee').value = "";
+                document.getElementById('inputDesc').value = "";
+                
+                addModal.show();
             }
         });
 
         calendar.render();
-    }
+
+        // 4. จัดการปุ่มบันทึกข้อมูล
+        document.getElementById('btnSubmit').onclick = function() {
+            const btn = this;
+            const title = document.getElementById('inputTitle').value;
+            const date = document.getElementById('inputDate').value;
+            const assignee = document.getElementById('inputAssignee').value;
+            const desc = document.getElementById('inputDesc').value;
+
+            if(!title.trim()) {
+                alert("กรุณาใส่ชื่อหัวข้องานครับ");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "กำลังบันทึกข้อมูล...";
+
+            const url = `${GAS_WEB_APP_URL}?action=addEvent&title=${encodeURIComponent(title)}&date=${date}&assignee=${encodeURIComponent(assignee)}&description=${encodeURIComponent(desc)}`;
+
+            fetch(url, { mode: 'no-cors' })
+                .then(() => {
+                    addModal.hide();
+                    btn.disabled = false;
+                    btn.innerText = "บันทึกข้อมูล";
+                    calendar.refetchEvents(); // โหลดปฏิทินใหม่ให้เห็นงานที่เพิ่งแอด
+                })
+                .catch(err => {
+                    alert("เกิดข้อผิดพลาดในการเชื่อมต่อ");
+                    btn.disabled = false;
+                    btn.innerText = "บันทึกข้อมูล";
+                });
+        };
+    });
 </script>
 
 </body>

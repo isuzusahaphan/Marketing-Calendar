@@ -3,117 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Team Note Calendar</title>
+    <title>Marketing Team Hub</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     
     <style>
         :root { 
-            --fc-border-color: #eaecf0; /* ปรับสีเส้นตารางให้อ่อนลง ดูละมุนขึ้น */
+            --fc-border-color: rgba(0,0,0,0.04);
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4ebf5 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
         }
+        
         body { 
-            background-color: #f4f7f8; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg-gradient);
+            font-family: 'Prompt', sans-serif; 
+            color: #2b3440;
+            min-height: 100vh;
         }
-        .container { 
-            background: white; 
+
+        /* Glassmorphism Container */
+        .glass-container { 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
-            margin-top: 30px; 
-            margin-bottom: 30px;
+            border-radius: 24px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06); 
+            margin: 40px auto;
+            max-width: 1200px;
         }
-        h2 { 
-            color: #2c3e50; 
-            margin-bottom: 25px; 
-            font-weight: 700; 
-            text-align: center;
+
+        /* Dashboard Cards */
+        .stat-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-icon { font-size: 2rem; }
+        .stat-info h3 { margin: 0; font-size: 1.5rem; font-weight: 700; color: #2c3e50; }
+        .stat-info p { margin: 0; font-size: 0.85rem; color: #8e9ca8; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;}
+
+        /* Quick Filters */
+        .filter-btn {
+            border: none;
+            background: #fff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #6c757d;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #2c3e50;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Calendar Tweaks */
+        .fc-toolbar-title { font-weight: 700 !important; color: #1a252f; font-size: 1.75em !important; }
+        .fc-button-primary { 
+            background: #fff !important; 
+            color: #2c3e50 !important; 
+            border: 1px solid #eaecf0 !important; 
+            border-radius: 10px !important;
+            font-family: 'Prompt', sans-serif !important;
+            text-transform: capitalize;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+        }
+        .fc-button-primary:hover, .fc-button-active { background: #f8f9fa !important; border-color: #d0d5dd !important;}
         
-        /* =========================================
-           UI/UX: ปรับแต่งสี Header ประจำวัน
-           ========================================= */
-        th.fc-col-header-cell {
-            padding: 12px 0; /* เพิ่มพื้นที่ให้ Header หายใจ */
-            border-bottom: 2px solid rgba(0,0,0,0.05); /* เส้นขอบล่างนุ่มๆ */
-        }
+        th.fc-col-header-cell { padding: 15px 0; background: transparent !important; }
+        .fc-col-header-cell-cushion { font-weight: 600; color: #8e9ca8 !important; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px;}
         
-        /* เอาขีดเส้นใต้ออกจากตัวหนังสือ */
-        .fc-col-header-cell-cushion { 
-            font-weight: 600; 
-            text-decoration: none !important; 
-            color: #333 !important; 
-            font-size: 1.05em;
-        }
-
-        /* กำหนดสีพาสเทลประจำวัน */
-        th.fc-day-sun { background-color: #ffe5e5 !important; } /* อาทิตย์ - แดงอ่อน */
-        th.fc-day-mon { background-color: #fffbc4 !important; } /* จันทร์ - เหลืองอ่อน */
-        th.fc-day-tue { background-color: #ffe0eb !important; } /* อังคาร - ชมพูอ่อน */
-        th.fc-day-wed { background-color: #d1f2d1 !important; } /* พุธ - เขียวอ่อน */
-        th.fc-day-thu { background-color: #ffe5cc !important; } /* พฤหัส - ส้มอ่อน */
-        th.fc-day-fri { background-color: #cce5ff !important; } /* ศุกร์ - ฟ้าอ่อน */
-        th.fc-day-sat { background-color: #e5ccff !important; } /* เสาร์ - ม่วงอ่อน */
-
-        /* =========================================
-           UI/UX: ปรับแต่งช่องปฏิทินและ Event
-           ========================================= */
-        /* ทำให้ช่องใสๆ สะอาดตา */
-        .fc-daygrid-day { transition: background-color 0.2s ease; }
-        .fc-daygrid-day:hover { background-color: #fafbfc; } /* ชี้ที่ช่องแล้วสีเปลี่ยนนิดๆ */
-
+        /* Event Style (Dynamic & Clean) */
         .fc-event { 
             cursor: pointer; 
-            padding: 3px 6px; 
-            border-radius: 6px; /* ขอบมนขึ้น */
-            font-size: 0.85em; 
-            border: none; /* เอาเส้นขอบงานออก ให้ดู Modern */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            padding: 4px 8px; 
+            border-radius: 8px; 
+            border: none;
+            font-size: 0.8em;
+            font-weight: 500;
+            color: #fff !important;
+            transition: all 0.2s ease;
         }
         .fc-event:hover {
-            transform: translateY(-1px); /* ชี้ที่งานแล้วลอยขึ้นนิดนึง */
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 5 !important;
         }
+
+        /* Modal Redesign */
+        .modal-content { border-radius: 20px; border: none; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .modal-header { border-bottom: none; padding: 25px 25px 10px 25px; }
+        .modal-title { font-weight: 700; font-size: 1.4rem; color: #1a252f;}
+        .modal-body { padding: 10px 25px 30px 25px; }
+        .platform-badge { padding: 6px 14px; border-radius: 20px; font-size: 0.8em; font-weight: 600; color: white; letter-spacing: 0.5px;}
+        .desc-box { background: #f8f9fa; border-radius: 12px; padding: 15px; font-size: 0.95em; color: #4a5568; line-height: 1.6; border: 1px solid #edf2f7;}
         
-        .fc-toolbar-title { font-size: 1.5em !important; font-weight: bold; color: #2c3e50;}
-        .fc-button-primary { background-color: #2c3e50 !important; border-color: #2c3e50 !important; }
-        .fc-button-primary:hover { background-color: #1a252f !important; }
-        
-        /* Tooltip Style */
-        .tippy-box { 
-            background-color: #2c3e50; 
-            color: white; 
-            border-radius: 8px; 
-            padding: 8px; 
-            font-size: 0.9em; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
+        /* Spinner */
+        #loader { text-align: center; padding: 50px; color: #8e9ca8; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>🗓 Marketing Team Calendar</h2>
-    <div id="calendar"></div>
+<div class="glass-container">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+            <h2 class="mb-0" style="font-weight: 700; color: #1a252f;">Marketing Board ⚡️</h2>
+            <p class="text-muted mb-0" style="font-size: 0.9em;">ศูนย์รวมแคมเปญและคอนเทนต์ของทีม</p>
+        </div>
+        
+        <div class="d-flex gap-3">
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-info">
+                    <h3 id="totalTasks">0</h3>
+                    <p>Total Tasks</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📱</div>
+                <div class="stat-info">
+                    <h3 id="activePlatforms">0</h3>
+                    <p>Platforms</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mb-4 overflow-auto pb-2" id="filterContainer">
+        <button class="filter-btn active" data-platform="all">All</button>
+        </div>
+
+    <div id="loader">
+        <div class="spinner-border text-primary mb-2" role="status"></div>
+        <div>กำลังซิงค์ข้อมูลจาก Google Sheets...</div>
+    </div>
+
+    <div id="calendar" style="display: none;"></div>
 </div>
 
 <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: none; border-radius: 12px 12px 0 0;">
-                <h5 class="modal-title" id="modalTitle" style="font-weight: 700; color: #2c3e50;">รายละเอียดงาน</h5>
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-start">
+                <h5 class="modal-title" id="modalTitle"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="padding: 25px;">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span id="modalPlatform" class="badge rounded-pill" style="font-size: 0.9em; padding: 8px 15px;"></span>
-                    <span class="text-muted" style="font-size: 0.9em;">👤 <span id="modalAssignee" style="font-weight: 600; color: #333;"></span></span>
+            <div class="modal-body">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <span id="modalPlatform" class="platform-badge"></span>
+                    <span style="color: #a0aec0;">|</span>
+                    <span style="font-size: 0.95em; color: #4a5568; font-weight: 500;">
+                        👤 <span>Assignee: </span><span id="modalAssignee" style="color: #2c3e50; font-weight: 600;"></span>
+                    </span>
                 </div>
-                <hr style="border-color: #eaecf0;">
-                <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 8px; font-weight: 600;">📝 บรีฟ / รายละเอียด:</p>
-                <div id="modalDescription" class="p-3 bg-light" style="border-radius: 8px; font-size: 0.95em; color: #495057; white-space: pre-wrap;"></div>
+                <div class="desc-box" id="modalDescription"></div>
             </div>
         </div>
     </div>
@@ -125,35 +183,94 @@
 <script src="https://unpkg.com/tippy.js@6"></script>
 
 <script>
-    // **** 1. อย่าลืมใส่ URL ของ GAS ตรงนี้นะครับ ****
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYpbBNhtCv8bfIyfvopI24zGXKpyUfuBhWCMsErvxR7I4relWAl3E1MJ1wAaPpzy0/exec";
+    // **** ใส่ URL ของ GAS ตรงนี้ ****
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbztBnT_2pVvgJsaLqfodJ_qZaS8vHJQgz0z5FY9SfU/dev";
+    
+    let allEventsData = []; // เก็บข้อมูลทั้งหมดไว้ในเครื่อง เพื่อให้ Filter ทำงานได้ไวโดยไม่ต้องโหลดใหม่
+    let calendar;
 
     document.addEventListener('DOMContentLoaded', function() {
+        fetchData();
+    });
+
+    function fetchData() {
+        fetch(`${GAS_WEB_APP_URL}?action=getEvents`)
+            .then(res => res.json())
+            .then(data => {
+                allEventsData = data;
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('calendar').style.display = 'block';
+                
+                updateDashboard(data);
+                generateFilters(data);
+                initCalendar(data);
+            })
+            .catch(err => {
+                console.error("Fetch Error:", err);
+                document.getElementById('loader').innerHTML = "<span class='text-danger'>เกิดข้อผิดพลาดในการดึงข้อมูล</span>";
+            });
+    }
+
+    function updateDashboard(data) {
+        document.getElementById('totalTasks').innerText = data.length;
+        const platforms = new Set(data.map(item => item.extendedProps.platform.trim().toLowerCase()));
+        document.getElementById('activePlatforms').innerText = platforms.size;
+    }
+
+    function generateFilters(data) {
+        const container = document.getElementById('filterContainer');
+        const platforms = [...new Set(data.map(item => item.extendedProps.platform.trim()))].filter(Boolean);
+        
+        platforms.forEach(platform => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.setAttribute('data-platform', platform);
+            btn.innerText = platform;
+            btn.onclick = (e) => applyFilter(e, platform);
+            container.appendChild(btn);
+        });
+
+        // Event สำหรับปุ่ม All
+        container.querySelector('[data-platform="all"]').onclick = (e) => applyFilter(e, 'all');
+    }
+
+    function applyFilter(e, platform) {
+        // อัปเดตสถานะปุ่ม
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+
+        // กรองข้อมูล
+        let filteredData = allEventsData;
+        if (platform !== 'all') {
+            filteredData = allEventsData.filter(item => item.extendedProps.platform.trim() === platform);
+        }
+
+        // อัปเดตปฏิทินแบบเรียลไทม์
+        calendar.removeAllEventSources();
+        calendar.addEventSource(filteredData);
+    }
+
+    function initCalendar(eventsData) {
         const calendarEl = document.getElementById('calendar');
         const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 
-        const calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            events: eventsData, // ใช้ข้อมูลที่โหลดมาแล้ว
             headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek'
+                left: 'title',
+                right: 'prev,next today' // ย้ายปุ่มสลับเดือนมาขวา ให้ดูมินิมอลขึ้น
             },
-            events: function(info, successCallback, failureCallback) {
-                fetch(`${GAS_WEB_APP_URL}?action=getEvents`)
-                    .then(res => res.json())
-                    .then(data => successCallback(data))
-                    .catch(err => {
-                        console.error("Fetch Error:", err);
-                        failureCallback(err);
-                    });
+            dayMaxEvents: 3, // ถ้าเกิน 3 ให้ขึ้น +more
+            moreLinkContent: function(arg) {
+                return `+ ดูอีก ${arg.num} งาน`;
             },
             eventDidMount: function(info) {
                 tippy(info.el, {
                     content: `
-                        <div style="text-align:left;">
+                        <div style="text-align:left; font-family:'Prompt';">
                             <strong style="font-size: 1.1em; color: #fff;">${info.event.title}</strong><br>
-                            <div style="margin-top: 5px; color: #e0e0e0; font-size: 0.9em;">
+                            <div style="margin-top: 5px; color: #cbd5e0; font-size: 0.85em; font-weight:300;">
                                 👤 ${info.event.extendedProps.assignee}<br>
                                 📱 ${info.event.extendedProps.platform}
                             </div>
@@ -162,7 +279,8 @@
                     allowHTML: true,
                     theme: 'material',
                     placement: 'top',
-                    animation: 'shift-away'
+                    animation: 'scale',
+                    duration: 200
                 });
             },
             eventClick: function(info) {
@@ -170,18 +288,15 @@
                 document.getElementById('modalTitle').innerText = info.event.title;
                 document.getElementById('modalPlatform').innerText = props.platform;
                 document.getElementById('modalPlatform').style.backgroundColor = info.event.backgroundColor;
-                document.getElementById('modalPlatform').style.color = '#fff'; // ให้ text บน badge เป็นสีขาวเสมอ
                 document.getElementById('modalAssignee').innerText = props.assignee;
-                document.getElementById('modalDescription').innerText = props.description;
+                document.getElementById('modalDescription').innerText = props.description || 'ไม่มีรายละเอียดเพิ่มเติม';
                 
                 eventModal.show();
-            },
-            dayMaxEvents: true,
-            locale: 'th' // ให้แสดงชื่อเดือน/วัน เป็นภาษาไทย
+            }
         });
 
         calendar.render();
-    });
+    }
 </script>
 
 </body>

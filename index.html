@@ -17,10 +17,10 @@
            1. Core & Background
            ========================================= */
         :root {
-            --bg-main: #f3f8ff;
-            --text-main: #2b3440;
-            --text-muted: #718096;
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            --bg-main: #eef2f6;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.98);
         }
 
         body {
@@ -38,77 +38,76 @@
             max-width: 1200px;
             margin: 0 auto;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(8, 112, 184, 0.07);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         /* =========================================
            2. Buttons
            ========================================= */
         .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white; border: none; border-radius: 12px;
             padding: 0.7rem 1.5rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
         }
-        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4); color: white; }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4); color: white; }
 
         .btn-outline-glass {
             background: white; color: var(--text-main);
-            border: 1px solid #e2e8f0; border-radius: 12px;
+            border: 1px solid #cbd5e1; border-radius: 12px;
             padding: 0.7rem 1.5rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
             transition: all 0.3s ease;
         }
-        .btn-outline-glass:hover { background: #f8fafc; transform: translateY(-2px); border-color: #cbd5e1; }
+        .btn-outline-glass:hover { background: #f8fafc; transform: translateY(-2px); border-color: #94a3b8; }
 
         /* =========================================
            3. Calendar Styling
            ========================================= */
         .fc-toolbar-title {
             font-weight: 800 !important; font-size: 1.8rem !important;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            color: #1e293b !important;
         }
         .fc .fc-button-primary { 
-            background: white !important; color: #2c3e50 !important; 
-            border: 1px solid #e2e8f0 !important; border-radius: 8px !important; 
+            background: white !important; color: #334155 !important; 
+            border: 1px solid #cbd5e1 !important; border-radius: 8px !important; 
             font-family: 'Prompt', sans-serif; text-transform: capitalize; font-weight: 500;
         }
-        .fc .fc-button-primary:hover, .fc .fc-button-active { background: #f1f5f9 !important; border-color: #cbd5e1 !important; color: #667eea !important; }
+        .fc .fc-button-primary:hover, .fc .fc-button-active { background: #f1f5f9 !important; border-color: #94a3b8 !important; color: #0f172a !important; }
 
-        /* Colorful Gradient Headers */
+        /* Dark & Rich Gradient Headers (โทนสีเข้มขึ้น) */
         th.fc-col-header-cell { border: none !important; padding: 12px 0; }
-        .fc-col-header-cell-cushion { color: #fff !important; font-weight: 600; text-decoration: none !important; }
+        .fc-col-header-cell-cushion { color: #fff !important; font-weight: 600; text-decoration: none !important; text-shadow: 0 1px 3px rgba(0,0,0,0.3); letter-spacing: 0.5px;}
         
-        th.fc-day-sun { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important; }
-        th.fc-day-mon { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%) !important; }
-        th.fc-day-tue { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%) !important; }
-        th.fc-day-wed { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%) !important; }
-        th.fc-day-thu { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important; }
-        th.fc-day-fri { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important; }
-        th.fc-day-sat { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%) !important; }
+        th.fc-day-sun { background: linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%) !important; } /* แดงเข้ม */
+        th.fc-day-mon { background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%) !important; } /* เหลืองเข้ม/ทอง */
+        th.fc-day-tue { background: linear-gradient(135deg, #ec008c 0%, #fc6767 100%) !important; } /* ชมพูเข้ม/บานเย็น */
+        th.fc-day-wed { background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%) !important; } /* เขียวมรกต */
+        th.fc-day-thu { background: linear-gradient(135deg, #e65c00 0%, #f9d423 100%) !important; } /* ส้มเข้ม */
+        th.fc-day-fri { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important; } /* น้ำเงินเข้ม */
+        th.fc-day-sat { background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%) !important; } /* ม่วงเข้ม */
 
-        .fc-daygrid-day { cursor: pointer; transition: 0.2s; }
-        .fc-daygrid-day:hover { background-color: rgba(102, 126, 234, 0.05); }
+        .fc-daygrid-day { cursor: pointer; transition: 0.2s; border-color: #e2e8f0; }
+        .fc-daygrid-day:hover { background-color: rgba(30, 60, 114, 0.04); }
 
+        /* Base Event Styling (สีจะถูกสุ่มจาก JS) */
         .fc-event {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
-            border: none !important; border-radius: 8px; padding: 5px 8px; margin: 2px 4px;
+            border: none !important; border-radius: 6px; padding: 5px 8px; margin: 2px 4px;
             font-size: 0.85rem; font-weight: 500; color: #fff !important; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 242, 254, 0.2); transition: transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s;
         }
-        .fc-event:hover { transform: translateY(-2px) scale(1.02); z-index: 5 !important; }
+        .fc-event:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 12px rgba(0,0,0,0.25); z-index: 5 !important; }
 
         /* =========================================
            4. Modals & Loaders
            ========================================= */
         .modal-content { border: none; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
         .detail-card { background: #f8fafc; border-radius: 16px; padding: 1.5rem; border: 1px solid #e2e8f0; }
-        .tippy-box { font-family: 'Prompt', sans-serif; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .tippy-box { font-family: 'Prompt', sans-serif; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); background-color: #1e293b; }
 
         .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top-color: #1e3c72; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
@@ -116,14 +115,14 @@
 
     <div class="loading-overlay" id="globalLoader">
         <div class="spinner"></div>
-        <div style="color: #667eea; font-weight: 600; margin-top: 10px;">กำลังซิงค์ข้อมูล...</div>
+        <div style="color: #1e3c72; font-weight: 600; margin-top: 10px;">กำลังซิงค์ข้อมูล...</div>
     </div>
 
     <div class="workspace-container">
-        <div class="d-flex justify-content-between align-items-end mb-4 pb-3" style="border-bottom: 2px dashed #e2e8f0;">
+        <div class="d-flex justify-content-between align-items-end mb-4 pb-3" style="border-bottom: 2px dashed #cbd5e1;">
             <div>
-                <h1 class="fc-toolbar-title" style="margin: 0;">Marketing Board 🎨</h1>
-                <div style="color: var(--text-muted); font-size: 0.95rem;">คลิกช่องว่างเพื่อเพิ่มโน้ต | ชี้ที่งานเพื่อดูย่อ | คลิกที่งานเพื่อแก้ไข</div>
+                <h1 class="fc-toolbar-title" style="margin: 0;">Marketing Board 🎯</h1>
+                <div style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">คลิกช่องว่างเพื่อเพิ่มโน้ต | ชี้ที่งานเพื่อดูย่อ | คลิกที่งานเพื่อแก้ไข</div>
             </div>
             <div class="d-flex gap-2">
                 <button class="btn-outline-glass" onclick="fetchCalendarData()"><i class='bx bx-refresh fs-5'></i> ซิงค์ข้อมูล</button>
@@ -144,7 +143,7 @@
                         <div class="col-6"><label class="small fw-bold text-muted mb-1">วันที่</label><input type="date" id="fDate" class="form-control rounded-3" readonly style="background: #f1f5f9;"></div>
                         <div class="col-6"><label class="small fw-bold text-muted mb-1">ผู้รับผิดชอบ</label><input type="text" id="fAssignee" class="form-control rounded-3" placeholder="ระบุชื่อ..."></div>
                     </div>
-                    <div class="mb-3"><label class="small fw-bold text-muted mb-1">หัวข้องาน <span class="text-danger">*</span></label><input type="text" id="fTitle" class="form-control rounded-3" placeholder="เช่น โปรโมชั่นกลางเดือน..."></div>
+                    <div class="mb-3"><label class="small fw-bold text-muted mb-1">หัวข้องาน <span class="text-danger">*</span></label><input type="text" id="fTitle" class="form-control rounded-3" placeholder="เช่น แคมเปญกลางเดือน..."></div>
                     <div class="mb-4"><label class="small fw-bold text-muted mb-1">รายละเอียด / บรีฟ</label><textarea id="fDesc" class="form-control rounded-3" rows="3" placeholder="ใส่รายละเอียดที่นี่..."></textarea></div>
                     <button class="btn-gradient w-100 justify-content-center" id="btnSaveForm" style="padding: 0.8rem;"><i class='bx bx-save fs-5'></i> บันทึกข้อมูลลงตาราง</button>
                 </div>
@@ -155,11 +154,11 @@
     <div class="modal fade" id="viewModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-4">
-                <div class="modal-header border-0 pb-0"><h5 class="fw-bold" id="vTitle" style="color: #2a5298;"></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-header border-0 pb-0"><h5 class="fw-bold" id="vTitle" style="color: #1e3c72;"></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
                 <div class="modal-body">
                     <div class="detail-card mb-4">
-                        <div class="small fw-bold text-muted mb-1">👤 ผู้รับผิดชอบ</div><div class="mb-3 fw-500 text-primary" id="vAssignee"></div>
-                        <div class="small fw-bold text-muted mb-1">📝 รายละเอียดงาน</div><div id="vDesc" style="font-size: 0.95rem; white-space: pre-wrap; color: #4a5568;"></div>
+                        <div class="small fw-bold text-muted mb-1">👤 ผู้รับผิดชอบ</div><div class="mb-3 fw-500" style="color: #2563eb;" id="vAssignee"></div>
+                        <div class="small fw-bold text-muted mb-1">📝 รายละเอียดงาน</div><div id="vDesc" style="font-size: 0.95rem; white-space: pre-wrap; color: #334155;"></div>
                     </div>
                     <div class="d-flex gap-3">
                         <button class="btn btn-outline-primary flex-fill rounded-3" id="btnGoEdit" style="padding: 0.6rem;"><i class='bx bx-edit-alt'></i> แก้ไข</button>
@@ -185,64 +184,76 @@
         let currentEvent = null;
         let currentMode = 'add';
 
+        // ชุดสี Gradient เข้มๆ สำหรับสุ่มให้ตัวโน้ตงาน
+        const eventGradients = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Purple
+            'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)', // Deep Blue
+            'linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%)', // Crimson Red
+            'linear-gradient(135deg, #0ba360 0%, #3cba92 100%)', // Emerald Green
+            'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)', // Orange Red
+            'linear-gradient(135deg, #b224ef 0%, #7579ff 100%)', // Magenta Blue
+            'linear-gradient(135deg, #141e30 0%, #243b55 100%)'  // Midnight
+        ];
+
+        // ฟังก์ชันแปลงชื่องานเป็นตัวเลข เพื่อให้สีเดิมไม่เปลี่ยนเวลาย้ายวัน
+        function getGradientByTitle(title) {
+            let hash = 0;
+            for (let i = 0; i < title.length; i++) {
+                hash = title.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return eventGradients[Math.abs(hash) % eventGradients.length];
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // สร้างโครงปฏิทิน
             calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                 initialView: 'dayGridMonth', 
                 locale: 'th',
                 
-                // --- เพิ่มปุ่มสลับมุมมอง (Month / Week) ---
+                // --- 1. ปิดการโชว์เวลา 00 ให้ออกไป ---
+                displayEventTime: false, 
+                
                 headerToolbar: { 
                     left: 'title', 
                     right: 'dayGridMonth,timeGridWeek prev,next today' 
                 },
-                buttonText: {
-                    month: 'เดือน',
-                    week: 'สัปดาห์',
-                    today: 'วันนี้'
-                },
-                // ------------------------------------
-
+                buttonText: { month: 'เดือน', week: 'สัปดาห์', today: 'วันนี้' },
                 events: [],
                 
-                // 1. Hover เพื่อดูข้อมูลเบื้องต้น (Tippy.js)
                 eventDidMount: function(info) {
+                    // --- 2. เปลี่ยนสี Gradient ของโน้ตให้แตกต่างกัน ---
+                    info.el.style.background = getGradientByTitle(info.event.title);
+
+                    // โชว์ Hover Tooltip
                     tippy(info.el, {
                         content: `
                             <div style="text-align:left; padding: 4px;">
                                 <strong style="font-size: 1.1em; color: #fff;">${info.event.title}</strong><br>
-                                <div style="margin-top: 6px; color: #e2e8f0; font-size: 0.9em;">
-                                    👤 ${info.event.extendedProps.assignee || 'ไม่ได้ระบุคนรับผิดชอบ'}
+                                <div style="margin-top: 6px; color: #cbd5e1; font-size: 0.9em;">
+                                    👤 ${info.event.extendedProps.assignee || 'ไม่ได้ระบุ'}
                                 </div>
                             </div>
                         `,
                         allowHTML: true,
-                        theme: 'material', // ใช้ธีมมาตรฐานที่มากับ Tippy ก็สวยแล้วครับ
+                        theme: 'material',
                         placement: 'top',
                         animation: 'scale'
                     });
                 },
-
-                // 2. คลิกช่องว่างเพื่อเปิด Form สร้างงาน
                 dateClick: (info) => openAddModal(info.dateStr),
-
-                // 3. คลิกที่งานเพื่อเปิด Modal ดูข้อมูลเต็มๆ
                 eventClick: (info) => openViewModal(info.event)
             });
             
             calendar.render();
             fetchCalendarData();
 
-            // จับคู่ปุ่มกับฟังก์ชัน
             document.getElementById('btnSaveForm').onclick = handleSave;
             document.getElementById('btnDelete').onclick = handleDelete;
             document.getElementById('btnGoEdit').onclick = () => { 
                 vModal.hide(); 
-                setTimeout(() => openEditModal(currentEvent), 200); // รอหน้าต่าง View ปิดก่อนแล้วเปิดฟอร์มแก้
+                setTimeout(() => openEditModal(currentEvent), 200); 
             };
         });
 
-        // ดึงข้อมูล
         function fetchCalendarData() {
             showLoader();
             fetch(`${GAS_URL}?action=getEvents`)

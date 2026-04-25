@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Workspace</title>
+    <title>Marketing Workspace ⚡️</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,123 +13,125 @@
 
     <style>
         /* =========================================
-           1. Core Variables & Setup
+           1. Core & Background
            ========================================= */
         :root {
-            --bg-color: #F8FAFC;         /* พื้นหลังแอป สีเทาอมฟ้าบางๆ */
-            --card-bg: #FFFFFF;
-            --text-main: #0F172A;        /* สีดำคมๆ */
-            --text-muted: #64748B;
-            --border-color: #E2E8F0;
-            --primary: #0F172A;
-            --primary-hover: #334155;
-            --fc-border-color: #F1F5F9;  /* เส้นปฏิทินที่อ่อนลงมาก */
-            --fc-today-bg-color: #F8FAFC;
+            --bg-main: #f3f8ff; /* พื้นหลังสว่างอมฟ้า ให้ความรู้สึกโปร่งสบาย */
+            --text-main: #2b3440;
+            --text-muted: #718096;
+            --glass-bg: rgba(255, 255, 255, 0.95);
         }
 
         body {
-            background-color: var(--bg-color);
+            background: var(--bg-main);
+            background-image: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 255, 0.28) 90%);
             font-family: 'Prompt', sans-serif;
             color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
             padding: 2rem 1rem;
+            min-height: 100vh;
         }
 
-        /* =========================================
-           2. Layout & Containers
-           ========================================= */
+        /* Container */
         .workspace-container {
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             max-width: 1200px;
             margin: 0 auto;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(8, 112, 184, 0.07);
             padding: 2.5rem;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .app-title { font-weight: 700; font-size: 1.8rem; letter-spacing: -0.5px; margin: 0; color: var(--text-main); }
-        .app-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.2rem; font-weight: 400; }
-
-        /* Buttons */
-        .btn-modern {
-            background: var(--primary); color: #fff;
-            border: none; border-radius: 8px;
-            padding: 0.6rem 1.2rem; font-weight: 500; font-size: 0.9rem;
-            transition: all 0.2s ease;
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .btn-modern:hover { background: var(--primary-hover); color: #fff; transform: translateY(-1px); }
-        .btn-modern-outline {
-            background: #fff; color: var(--text-main);
-            border: 1px solid var(--border-color); border-radius: 8px;
-            padding: 0.6rem 1.2rem; font-weight: 500; font-size: 0.9rem;
-            transition: all 0.2s ease;
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .btn-modern-outline:hover { background: var(--bg-color); border-color: #CBD5E1; }
 
         /* =========================================
-           3. Calendar Override (SaaS Look)
+           2. Buttons & Gradients
            ========================================= */
-        .fc-toolbar-title { font-weight: 700 !important; font-size: 1.4rem !important; }
-        .fc .fc-button-primary {
-            background-color: #fff !important; color: var(--text-main) !important;
-            border: 1px solid var(--border-color) !important; border-radius: 8px !important;
-            font-family: 'Prompt', sans-serif; text-transform: capitalize; box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 12px;
+            padding: 0.7rem 1.5rem; font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
         }
-        .fc .fc-button-primary:hover, .fc .fc-button-active { background-color: var(--bg-color) !important; }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px); box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4); color: white;
+        }
+
+        .btn-outline-glass {
+            background: rgba(255, 255, 255, 0.8); color: var(--text-main);
+            border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 0.7rem 1.5rem; font-weight: 500; font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline-glass:hover { background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px); }
+
+        /* =========================================
+           3. Calendar & Colorful Headers
+           ========================================= */
+        .fc-toolbar-title {
+            font-weight: 800 !important; font-size: 1.8rem !important;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .fc .fc-button-primary {
+            background: white !important; color: var(--text-main) !important;
+            border: 1px solid #e2e8f0 !important; border-radius: 10px !important;
+            font-family: 'Prompt', sans-serif; font-weight: 500; text-transform: capitalize;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+        }
+        .fc .fc-button-primary:hover, .fc .fc-button-active { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
+
+        /* สี Gradient ประจำวัน (สดใสแต่นุ่มนวล) */
+        th.fc-col-header-cell { border: none !important; padding: 12px 0; }
+        .fc-col-header-cell-cushion { color: #fff !important; font-size: 1rem; font-weight: 600; text-decoration: none !important; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
         
-        /* Headers */
-        th.fc-col-header-cell { padding: 12px 0; background: transparent !important; border-bottom: 2px solid var(--border-color) !important; }
-        .fc-col-header-cell-cushion { color: var(--text-muted) !important; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none !important;}
-        
-        /* Days & Events */
-        .fc-daygrid-day { transition: background-color 0.2s; border: 1px solid var(--fc-border-color); }
-        .fc-daygrid-day:hover { background-color: #F1F5F9; cursor: pointer; }
-        .fc-daygrid-day-number { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; padding: 8px !important; text-decoration: none !important;}
-        
+        th.fc-day-sun { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important; } /* อาทิตย์ - แดง/ชมพู */
+        th.fc-day-mon { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%) !important; } /* จันทร์ - เหลือง/ส้ม */
+        th.fc-day-tue { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%) !important; } /* อังคาร - ชมพู/ม่วงอ่อน */
+        th.fc-day-wed { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%) !important; } /* พุธ - เขียว/ฟ้า */
+        th.fc-day-thu { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important; } /* พฤหัส - ส้มพีช */
+        th.fc-day-fri { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important; } /* ศุกร์ - ฟ้าสดใส */
+        th.fc-day-sat { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%) !important; } /* เสาร์ - ม่วง/ฟ้า */
+
+        /* วันในปฏิทิน */
+        .fc-daygrid-day { transition: all 0.2s; border-color: #f1f5f9; }
+        .fc-daygrid-day:hover { background-color: rgba(102, 126, 234, 0.05); cursor: pointer; }
+        .fc-daygrid-day-number { color: var(--text-muted); font-weight: 500; text-decoration: none !important; padding: 8px; }
+
+        /* ตัวงาน (Events) แบบ Gradient */
         .fc-event {
-            border: none; border-radius: 6px; padding: 4px 8px; margin: 2px 4px;
-            font-size: 0.8rem; font-weight: 500; color: #fff !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important; /* ฟ้าสว่าง */
+            border: none !important; border-radius: 8px; padding: 5px 8px; margin: 2px 4px;
+            font-size: 0.85rem; font-weight: 500; color: #fff !important;
+            box-shadow: 0 4px 10px rgba(0, 242, 254, 0.2);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .fc-event:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 5 !important; }
-        .fc-event-main { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .fc-event:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 15px rgba(0, 242, 254, 0.4); z-index: 5 !important; }
 
         /* =========================================
-           4. Modals (Clean & Floating)
+           4. Modals (Clean & Soft Shadow)
            ========================================= */
-        .modal-backdrop { backdrop-filter: blur(4px); background-color: rgba(15, 23, 42, 0.4); }
-        .modal-content { border: none; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); overflow: hidden; }
-        .modal-header { border-bottom: 1px solid var(--border-color); padding: 1.5rem 2rem; background: #fff; }
-        .modal-title { font-weight: 700; color: var(--text-main); font-size: 1.25rem; }
+        .modal-content { border: none; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow: hidden; }
+        .modal-header { border-bottom: 1px solid #f1f5f9; padding: 1.5rem 2rem; background: #fff; }
+        .modal-title { font-weight: 700; color: var(--text-main); font-size: 1.4rem; }
         .modal-body { padding: 2rem; background: #fff; }
-        
-        /* Form Inputs */
-        .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-        .form-control { border: 1px solid var(--border-color); border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.95rem; background-color: #F8FAFC; transition: all 0.2s; }
-        .form-control:focus { background-color: #fff; border-color: #94A3B8; box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15); outline: none; }
-        
-        /* View View specific */
-        .detail-card { background: #F8FAFC; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border-color); margin-bottom: 1.5rem; }
-        .detail-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 0.2rem;}
-        .detail-value { font-size: 1rem; color: var(--text-main); font-weight: 500; margin-bottom: 1rem; white-space: pre-wrap; }
-        .detail-value:last-child { margin-bottom: 0; }
+
+        /* Forms */
+        .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+        .form-control { border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.8rem 1rem; font-size: 0.95rem; background-color: #f8fafc; transition: all 0.3s; }
+        .form-control:focus { background-color: #fff; border-color: #667eea; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15); outline: none; }
+
+        /* View Detail Card */
+        .detail-card { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); border-radius: 16px; padding: 1.5rem; border: 1px solid #e2e8f0; }
+        .detail-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-bottom: 0.3rem;}
+        .detail-value { font-size: 1.05rem; color: var(--text-main); font-weight: 500; margin-bottom: 1rem; white-space: pre-wrap; }
 
         /* Loader */
-        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; gap: 1rem; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--border-color); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; gap: 1rem; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
@@ -137,21 +139,21 @@
 
     <div class="loading-overlay" id="globalLoader">
         <div class="spinner"></div>
-        <div style="color: var(--text-muted); font-weight: 500;">กำลังซิงค์ข้อมูล Workspace...</div>
+        <div style="color: #667eea; font-weight: 600; font-size: 1.1rem; margin-top: 10px;">กำลังซิงค์ข้อมูล...</div>
     </div>
 
     <div class="workspace-container">
-        <div class="top-bar">
+        <div class="d-flex justify-content-between align-items-end mb-4 pb-3" style="border-bottom: 2px dashed #e2e8f0;">
             <div>
-                <h1 class="app-title">Marketing Board</h1>
-                <div class="app-subtitle">คลิกที่วันที่เพื่อสร้างตารางงานใหม่</div>
+                <h1 class="fc-toolbar-title" style="margin: 0;">Marketing Board 🎨</h1>
+                <div style="color: var(--text-muted); font-size: 1rem; margin-top: 0.3rem;">คลิกที่ปฏิทินเพื่อเพิ่มบรีฟและตารางงานได้เลย!</div>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn-modern-outline" onclick="fetchCalendarData()">
-                    <i class='bx bx-refresh fs-5'></i> ซิงค์ข้อมูล
+                <button class="btn-outline-glass" onclick="fetchCalendarData()">
+                    <i class='bx bx-refresh fs-5'></i> รีเฟรช
                 </button>
-                <button class="btn-modern" onclick="openAddModal(new Date().toISOString().split('T')[0])">
-                    <i class='bx bx-plus fs-5'></i> เพิ่มงานด่วน
+                <button class="btn-gradient" onclick="openAddModal(new Date().toISOString().split('T')[0])">
+                    <i class='bx bx-plus fs-5'></i> สร้างงานใหม่
                 </button>
             </div>
         </div>
@@ -162,37 +164,37 @@
     <div class="modal fade" id="formModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between align-items-center">
-                    <h5 class="modal-title" id="formModalTitle">สร้างงานใหม่</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalTitle">สร้างงานใหม่ 📝</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="fId"> <div class="row mb-3">
+                    <input type="hidden" id="fId">
+                    
+                    <div class="row mb-3">
                         <div class="col-md-6">
-                            <label class="form-label">วันที่</label>
+                            <label class="form-label">📅 วันที่</label>
                             <input type="date" id="fDate" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">ผู้รับผิดชอบ</label>
-                            <input type="text" id="fAssignee" class="form-control" placeholder="ระบุชื่อ...">
+                            <label class="form-label">👤 ผู้รับผิดชอบ</label>
+                            <input type="text" id="fAssignee" class="form-control" placeholder="ระบุชื่อทีมงาน...">
                         </div>
                     </div>
                     
                     <div class="mb-3">
-                        <label class="form-label">หัวข้องาน <span class="text-danger">*</span></label>
-                        <input type="text" id="fTitle" class="form-control" placeholder="เช่น ยิงแอดแคมเปญ...">
+                        <label class="form-label">📌 หัวข้องาน <span class="text-danger">*</span></label>
+                        <input type="text" id="fTitle" class="form-control" placeholder="เช่น แคมเปญโปรโมชั่น...">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="form-label">รายละเอียด / บรีฟ</label>
-                        <textarea id="fDesc" class="form-control" rows="4" placeholder="ระบุรายละเอียดที่ต้องทำ..."></textarea>
+                        <label class="form-label">📝 รายละเอียด / บรีฟ</label>
+                        <textarea id="fDesc" class="form-control" rows="4" placeholder="อธิบายรายละเอียดงานที่ต้องทำ..."></textarea>
                     </div>
 
-                    <div class="d-flex gap-2">
-                        <button type="button" class="btn-modern w-100 justify-content-center" id="btnSaveForm">
-                            <i class='bx bx-check'></i> บันทึกข้อมูล
-                        </button>
-                    </div>
+                    <button type="button" class="btn-gradient w-100 justify-content-center" id="btnSaveForm" style="padding: 0.8rem;">
+                        <i class='bx bx-save fs-5'></i> บันทึกข้อมูลลงตาราง
+                    </button>
                 </div>
             </div>
         </div>
@@ -201,26 +203,24 @@
     <div class="modal fade" id="viewModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-0 pb-0">
-                    <div class="d-flex justify-content-between w-100 align-items-start">
-                        <h5 class="modal-title" id="vTitle" style="font-size: 1.5rem;"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body pt-3">
-                    <div class="detail-card">
+                <div class="modal-body pt-2">
+                    <div class="detail-card mb-4">
                         <div class="detail-label">👤 ผู้รับผิดชอบ</div>
-                        <div class="detail-value" id="vAssignee"></div>
+                        <div class="detail-value text-primary" id="vAssignee"></div>
                         
                         <div class="detail-label mt-3">📝 รายละเอียดงาน</div>
-                        <div class="detail-value" id="vDesc" style="color: var(--text-muted); font-size: 0.95rem;"></div>
+                        <div class="detail-value" id="vDesc" style="color: #4a5568; font-size: 0.95rem;"></div>
                     </div>
 
-                    <div class="d-flex gap-2 mt-4">
-                        <button class="btn-modern-outline flex-fill justify-content-center" id="btnGoEdit">
-                            <i class='bx bx-edit-alt'></i> แก้ไข
+                    <div class="d-flex gap-3">
+                        <button class="btn-outline-glass flex-fill justify-content-center" id="btnGoEdit" style="border-color: #667eea; color: #667eea;">
+                            <i class='bx bx-edit-alt'></i> แก้ไขโน้ต
                         </button>
-                        <button class="btn-modern-outline flex-fill justify-content-center text-danger border-danger" id="btnDelete" style="background: #fffafa;">
+                        <button class="btn-outline-glass flex-fill justify-content-center" id="btnDelete" style="border-color: #fc8181; color: #e53e3e; background: #fff5f5;">
                             <i class='bx bx-trash'></i> ลบทิ้ง
                         </button>
                     </div>
@@ -229,24 +229,20 @@
         </div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
 
     <script>
         // ==========================================
-        // ⚠️ นำ URL ของ Web App ที่ลงท้ายด้วย /exec มาใส่ตรงนี้
+        // API URL เดิมที่คุณตั้งค่าไว้เรียบร้อยแล้ว
         // ==========================================
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwYpbBNhtCv8bfIyfvopI24zGXKpyUfuBhWCMsErvxR7I4relWAl3E1MJ1wAaPpzy0/exec";
         
         let calendar;
-        let eventsData = [];
-        
         const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
         const formModal = new bootstrap.Modal(document.getElementById('formModal'));
         
-        // ตัวแปรโหมดของ Form: 'add' หรือ 'edit'
         let currentFormMode = 'add'; 
         let currentEventRawData = null;
 
@@ -254,20 +250,15 @@
             initCalendar();
             fetchCalendarData();
 
-            // จัดการปุ่มบันทึก
+            // Event Listeners สำหรับปุ่มต่างๆ
             document.getElementById('btnSaveForm').addEventListener('click', handleSave);
-            
-            // จัดการปุ่มไปหน้าแก้ไข
             document.getElementById('btnGoEdit').addEventListener('click', () => {
                 viewModal.hide();
-                setTimeout(() => openEditModal(currentEventRawData), 300);
+                setTimeout(() => openEditModal(currentEventRawData), 300); // ดีเลย์ให้ Modal เก่าปิดสนิทก่อน
             });
-
-            // จัดการปุ่มลบ
             document.getElementById('btnDelete').addEventListener('click', handleDelete);
         });
 
-        // 1. สร้างโครงปฏิทิน
         function initCalendar() {
             const calendarEl = document.getElementById('calendar');
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -280,16 +271,16 @@
                 dayMaxEvents: 4,
                 events: [], 
                 dateClick: function(info) {
-                    openAddModal(info.dateStr);
+                    openAddModal(info.dateStr); // คลิกช่องว่าง = เพิ่มงานใหม่
                 },
                 eventClick: function(info) {
-                    openViewModal(info.event);
+                    openViewModal(info.event);  // คลิดที่งาน = ดูรายละเอียด
                 }
             });
             calendar.render();
         }
 
-        // 2. ดึงข้อมูลจาก GAS
+        // ดึงข้อมูล
         function fetchCalendarData() {
             showLoader();
             fetch(`${GAS_URL}?action=getEvents`)
@@ -301,19 +292,17 @@
                 })
                 .catch(err => {
                     hideLoader();
-                    Swal.fire('ข้อผิดพลาด', 'ไม่สามารถดึงข้อมูลจาก Server ได้', 'error');
+                    Swal.fire('ข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้', 'error');
                 });
         }
 
-        // 3. จัดการ UI เปิดหน้าต่างต่างๆ
+        // เปิด Modal สร้างใหม่
         function openAddModal(dateStr) {
             currentFormMode = 'add';
-            document.getElementById('formModalTitle').innerText = 'สร้างงานใหม่';
+            document.getElementById('formModalTitle').innerText = 'สร้างงานใหม่ 📝';
             
-            // ล้างค่าเก่า
             document.getElementById('fId').value = '';
             document.getElementById('fDate').value = dateStr;
-            document.getElementById('fDate').removeAttribute('readonly');
             document.getElementById('fTitle').value = '';
             document.getElementById('fAssignee').value = '';
             document.getElementById('fDesc').value = '';
@@ -321,24 +310,25 @@
             formModal.show();
         }
 
+        // เปิด Modal ดูรายละเอียด
         function openViewModal(eventObj) {
-            currentEventRawData = eventObj; // เก็บไว้ใช้ตอนกด Edit/Delete
+            currentEventRawData = eventObj;
             const p = eventObj.extendedProps;
             
             document.getElementById('vTitle').innerText = eventObj.title;
-            document.getElementById('vAssignee').innerText = p.assignee || '-';
-            document.getElementById('vDesc').innerText = p.description || 'ไม่มีรายละเอียดเพิ่มเติม';
+            document.getElementById('vAssignee').innerText = p.assignee || 'ไม่ได้ระบุ';
+            document.getElementById('vDesc').innerText = p.description || 'ไม่มีบรีฟเพิ่มเติม';
             
             viewModal.show();
         }
 
+        // เปิด Modal แก้ไข (ดึงข้อมูลเก่ามาใส่ฟอร์ม)
         function openEditModal(eventObj) {
             currentFormMode = 'edit';
-            document.getElementById('formModalTitle').innerText = 'แก้ไขข้อมูลงาน';
+            document.getElementById('formModalTitle').innerText = 'แก้ไขข้อมูลงาน ✏️';
             
             document.getElementById('fId').value = eventObj.id;
             document.getElementById('fDate').value = eventObj.startStr.split('T')[0];
-            document.getElementById('fDate').setAttribute('readonly', true); // ไม่ให้แก้วันที่เพื่อป้องกันความซับซ้อน
             document.getElementById('fTitle').value = eventObj.title;
             document.getElementById('fAssignee').value = eventObj.extendedProps.assignee;
             document.getElementById('fDesc').value = eventObj.extendedProps.description;
@@ -346,7 +336,7 @@
             formModal.show();
         }
 
-        // 4. จัดการ API Calls (เพิ่ม / แก้ไข / ลบ)
+        // กดปุ่มบันทึก
         function handleSave() {
             const id = document.getElementById('fId').value;
             const title = document.getElementById('fTitle').value.trim();
@@ -355,27 +345,26 @@
             const desc = document.getElementById('fDesc').value.trim();
 
             if (!title) {
-                Swal.fire({ icon: 'warning', title: 'กรุณากรอกข้อมูล', text: 'หัวข้องานเป็นสิ่งที่ต้องระบุครับ', confirmButtonColor: '#0F172A' });
+                Swal.fire({ icon: 'warning', title: 'เดี๋ยวก่อน!', text: 'กรุณาตั้งชื่อหัวข้องานด้วยครับ', confirmButtonColor: '#667eea' });
                 return;
             }
 
             const action = currentFormMode === 'add' ? 'addEvent' : 'updateEvent';
-            const params = { id, title, date, assignee, description: desc };
-
-            executeAPI(action, params, currentFormMode === 'add' ? 'กำลังสร้างงาน...' : 'กำลังบันทึกการแก้ไข...', formModal);
+            executeAPI(action, { id, title, date, assignee, description: desc }, 'กำลังบันทึกข้อมูล...', formModal);
         }
 
+        // กดปุ่มลบ
         function handleDelete() {
             if(!currentEventRawData) return;
             
             Swal.fire({
-                title: 'ยืนยันการลบ?',
-                text: `คุณต้องการลบงาน "${currentEventRawData.title}" ใช่หรือไม่?`,
+                title: 'ยืนยันการลบทิ้ง?',
+                text: `คุณแน่ใจหรือไม่ที่จะลบ "${currentEventRawData.title}" ออกจากตาราง?`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#94a3b8',
-                confirmButtonText: 'ใช่, ลบทิ้งเลย',
+                confirmButtonColor: '#e53e3e',
+                cancelButtonColor: '#cbd5e1',
+                confirmButtonText: 'ใช่, ลบเลย!',
                 cancelButtonText: 'ยกเลิก',
                 reverseButtons: true
             }).then((result) => {
@@ -385,37 +374,25 @@
             });
         }
 
-        // ฟังก์ชันกลางสำหรับเรียก API
+        // ฟังก์ชันส่ง Request ไปที่ Google Apps Script
         function executeAPI(action, params, loadingText, modalToClose) {
-            Swal.fire({
-                title: loadingText,
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
+            Swal.fire({ title: loadingText, allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
 
             const query = new URLSearchParams({ action, ...params }).toString();
             
             fetch(`${GAS_URL}?${query}`, { mode: 'no-cors' })
                 .then(() => {
                     modalToClose.hide();
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'สำเร็จ!',
-                        text: 'ระบบได้อัปเดตข้อมูลแล้ว',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                    fetchCalendarData(); // โหลดข้อมูลใหม่มาแสดง
+                    Swal.fire({ icon: 'success', title: 'เรียบร้อย!', text: 'ระบบอัปเดตข้อมูลสำเร็จ', timer: 1500, showConfirmButton: false });
+                    fetchCalendarData(); // โหลดข้อมูลมาวาดปฏิทินใหม่
                 })
                 .catch(err => {
-                    Swal.fire('ข้อผิดพลาด', 'เกิดปัญหาในการเชื่อมต่อกับเซิร์ฟเวอร์', 'error');
+                    Swal.fire('ข้อผิดพลาด', 'เกิดปัญหาในการส่งข้อมูลไปที่เซิร์ฟเวอร์', 'error');
                 });
         }
 
-        // 5. Utility
         function showLoader() { document.getElementById('globalLoader').style.display = 'flex'; }
         function hideLoader() { document.getElementById('globalLoader').style.display = 'none'; }
-
     </script>
 </body>
 </html>

@@ -4,136 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketing Team Hub</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-    
     <style>
-        :root { 
-            --fc-border-color: rgba(0,0,0,0.05);
-            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        }
-        
-        body { 
-            background: var(--bg-gradient);
-            font-family: 'Prompt', sans-serif; 
-            color: #2b3440;
-            min-height: 100vh;
-        }
-
-        /* Container & Glassmorphism */
-        .app-container { 
-            background: rgba(255, 255, 255, 0.95); 
-            border-radius: 24px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
-            margin: 40px auto;
-            padding: 30px;
-            max-width: 1200px;
-        }
-
-        /* Calendar Styling */
-        .fc-toolbar-title { font-weight: 700 !important; color: #1a252f; font-size: 1.5em !important; }
-        .fc-button-primary { 
-            background: #fff !important; color: #2c3e50 !important; 
-            border: 1px solid #eaecf0 !important; border-radius: 10px !important;
-        }
-        .fc-button-primary:hover { background: #f8f9fa !important; }
-        
-        /* Pastel Headers */
-        th.fc-col-header-cell { padding: 12px 0; border-bottom: none !important;}
-        .fc-col-header-cell-cushion { font-weight: 600; color: #333 !important; text-decoration: none !important;}
-        th.fc-day-sun { background-color: #ffe5e5 !important; } 
-        th.fc-day-mon { background-color: #fffbc4 !important; } 
-        th.fc-day-tue { background-color: #ffe0eb !important; } 
-        th.fc-day-wed { background-color: #d1f2d1 !important; } 
-        th.fc-day-thu { background-color: #ffe5cc !important; } 
-        th.fc-day-fri { background-color: #cce5ff !important; } 
-        th.fc-day-sat { background-color: #e5ccff !important; } 
-
-        /* Event Items & Interactive Days */
-        .fc-event { 
-            cursor: pointer; padding: 4px 6px; border-radius: 6px; border: none;
-            font-size: 0.8em; font-weight: 500; color: #fff !important;
-            transition: transform 0.2s ease;
-        }
-        .fc-event:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); z-index: 5 !important; }
-        .fc-daygrid-day:hover { background-color: rgba(0,0,0,0.01); cursor: pointer; } /* Cursor เปลี่ยนตอนชี้ช่องว่าง */
-
-        /* Modal Redesign */
-        .modal-content { border-radius: 20px; border: none; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
-        .modal-header { border-bottom: none; padding: 25px 25px 10px 25px; }
-        .modal-title { font-weight: 700; color: #1a252f; font-size: 1.4rem;}
-        .modal-body { padding: 15px 25px 30px 25px; }
-        .desc-box { background: #f8f9fa; border-radius: 12px; padding: 15px; font-size: 0.95em; color: #4a5568; white-space: pre-wrap; }
-        
-        /* Form Inputs */
-        .form-control { border-radius: 10px; padding: 10px 15px; border: 1px solid #e0e0e0; }
-        .form-control:focus { box-shadow: none; border-color: #2c3e50; }
-        .btn-save { background: #2c3e50; color: white; border-radius: 10px; padding: 10px; font-weight: 600; border: none; width: 100%; transition: 0.2s; }
-        .btn-save:hover { background: #1a252f; }
-
-        #loader { text-align: center; padding: 50px; color: #8e9ca8; }
+        body { background: #f4f7f6; font-family: 'Prompt', sans-serif; }
+        .app-container { background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin: 30px auto; padding: 25px; max-width: 1100px; }
+        th.fc-col-header-cell { padding: 10px 0; border: none !important; }
+        th.fc-day-sun { background-color: #ffe5e5 !important; } th.fc-day-mon { background-color: #fffbc4 !important; } th.fc-day-tue { background-color: #ffe0eb !important; } th.fc-day-wed { background-color: #d1f2d1 !important; } th.fc-day-thu { background-color: #ffe5cc !important; } th.fc-day-fri { background-color: #cce5ff !important; } th.fc-day-sat { background-color: #e5ccff !important; }
+        .fc-event { cursor: pointer; border-radius: 6px; border: none; padding: 4px; font-size: 0.85em; }
+        .modal-content { border-radius: 20px; border: none; }
+        .btn-custom { border-radius: 10px; padding: 10px 20px; font-weight: 500; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-        <div>
-            <h2 class="mb-0" style="font-weight: 700; color: #1a252f;">⚡️ Marketing Hub</h2>
-            <p class="text-muted mb-0">คลิกที่ปฏิทินเพื่อเพิ่มโน้ตใหม่ได้เลย</p>
-        </div>
-        <button class="btn btn-light shadow-sm" onclick="calendar.refetchEvents()" style="border-radius: 10px; font-weight: 500;">
-            🔄 รีเฟรชข้อมูล
-        </button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Marketing Hub ⚡️</h2>
+        <button class="btn btn-dark btn-custom" onclick="calendar.refetchEvents()">🔄 รีเฟรช</button>
     </div>
-
     <div id="calendar"></div>
 </div>
 
-<div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="viewModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header d-flex justify-content-between align-items-start">
-                <h5 class="modal-title" id="modalTitle"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <span style="font-size: 1em; color: #4a5568;">
-                        👤 <strong>ผู้รับผิดชอบ: </strong><span id="modalAssignee" style="color: #2c3e50;"></span>
-                    </span>
+        <div class="modal-content p-3">
+            <div id="viewMode">
+                <div class="modal-header border-0">
+                    <h5 class="fw-bold" id="vTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <h6 style="font-weight: 600; color: #2c3e50; margin-bottom: 10px;">📝 รายละเอียดงาน:</h6>
-                <div class="desc-box" id="modalDescription"></div>
+                <div class="modal-body">
+                    <p class="text-muted mb-2">👤 ผู้รับผิดชอบ: <span id="vAssignee" class="text-dark fw-bold"></span></p>
+                    <div id="vDesc" class="p-3 bg-light rounded mb-4" style="white-space: pre-wrap;"></div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary w-50 btn-custom" id="btnGoEdit">แก้ไขโน้ต</button>
+                        <button class="btn btn-outline-danger w-50 btn-custom" id="btnDelete">ลบทิ้ง</button>
+                    </div>
+                </div>
+            </div>
+            <div id="editMode" style="display:none;">
+                <div class="modal-header border-0">
+                    <h5 class="fw-bold">แก้ไขข้อมูล</h5>
+                    <button type="button" class="btn-close" onclick="switchMode('view')"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editId">
+                    <div class="mb-3"><label class="small fw-bold">หัวข้อ</label><input type="text" id="eTitle" class="form-control"></div>
+                    <div class="mb-3"><label class="small fw-bold">ผู้รับผิดชอบ</label><input type="text" id="eAssignee" class="form-control"></div>
+                    <div class="mb-3"><label class="small fw-bold">รายละเอียด</label><textarea id="eDesc" class="form-control" rows="3"></textarea></div>
+                    <button class="btn btn-primary w-100 btn-custom" id="btnUpdate">บันทึกการแก้ไข</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header d-flex justify-content-between align-items-start">
-                <h5 class="modal-title">เพิ่มโน้ตใหม่ <span id="displayDate" class="text-primary" style="font-size: 0.8em;"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content p-3">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">เพิ่มโน้ตใหม่ - <span id="addDateLabel"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="inputDate">
-                <div class="mb-3">
-                    <label class="form-label text-muted small fw-bold">หัวข้องาน</label>
-                    <input type="text" id="inputTitle" class="form-control" placeholder="พิมพ์ชื่อหัวข้อ...">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label text-muted small fw-bold">ผู้รับผิดชอบ</label>
-                    <input type="text" id="inputAssignee" class="form-control" placeholder="ระบุชื่อคนทำ...">
-                </div>
-                <div class="mb-4">
-                    <label class="form-label text-muted small fw-bold">รายละเอียด / บรีฟ</label>
-                    <textarea id="inputDesc" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม..."></textarea>
-                </div>
-                <button type="button" class="btn-save" id="btnSubmit">บันทึกข้อมูล</button>
+                <input type="hidden" id="addDate">
+                <div class="mb-3"><label class="small fw-bold">หัวข้อ</label><input type="text" id="aTitle" class="form-control"></div>
+                <div class="mb-3"><label class="small fw-bold">ผู้รับผิดชอบ</label><input type="text" id="aAssignee" class="form-control"></div>
+                <div class="mb-3"><label class="small fw-bold">รายละเอียด</label><textarea id="aDesc" class="form-control" rows="3"></textarea></div>
+                <button class="btn btn-dark w-100 btn-custom" id="btnSave">บันทึกข้อมูล</button>
             </div>
         </div>
     </div>
@@ -141,116 +81,81 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
 
 <script>
-    // ==========================================
-    // ⚠️ นำ URL ของ Web App ที่ลงท้ายด้วย /exec มาใส่ตรงนี้
-    // ==========================================
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYpbBNhtCv8bfIyfvopI24zGXKpyUfuBhWCMsErvxR7I4relWAl3E1MJ1wAaPpzy0/exec";
-    
+    const GAS_URL = "ใส่_URL_ที่ลงท้ายด้วย_exec_ตรงนี้";
     let calendar;
+    const viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
+    const addModal = new bootstrap.Modal(document.getElementById('addModal'));
 
     document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar');
-        const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-        const addModal = new bootstrap.Modal(document.getElementById('addModal'));
-
-        calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            locale: 'th',
-            headerToolbar: {
-                left: 'title',
-                right: 'prev,next today' 
-            },
-            // ดึงข้อมูลแบบ Real-time เวลาเปลี่ยนเดือน หรือกด Refresh
-            events: function(info, successCallback, failureCallback) {
-                fetch(`${GAS_WEB_APP_URL}?action=getEvents`)
-                    .then(res => res.json())
-                    .then(data => successCallback(data))
-                    .catch(err => failureCallback(err));
-            },
-            dayMaxEvents: 3, 
-            moreLinkContent: function(arg) {
-                return `+ ดูอีก ${arg.num} งาน`;
-            },
-            
-            // 1. ระบบ Hover (ชี้ดูข้อมูล - ตัด Platform ออก)
-            eventDidMount: function(info) {
-                tippy(info.el, {
-                    content: `
-                        <div style="text-align:left; font-family:'Prompt';">
-                            <strong style="font-size: 1.1em; color: #fff;">${info.event.title}</strong><br>
-                            <div style="margin-top: 5px; color: #e2e8f0; font-size: 0.85em; font-weight:300;">
-                                👤 ${info.event.extendedProps.assignee}
-                            </div>
-                        </div>
-                    `,
-                    allowHTML: true,
-                    theme: 'material',
-                    placement: 'top',
-                    animation: 'scale'
-                });
-            },
-            
-            // 2. ระบบ Click งาน (ดูรายละเอียดเต็ม)
-            eventClick: function(info) {
-                const props = info.event.extendedProps;
-                document.getElementById('modalTitle').innerText = info.event.title;
-                document.getElementById('modalAssignee').innerText = props.assignee;
-                document.getElementById('modalDescription').innerText = props.description || 'ไม่มีรายละเอียดเพิ่มเติม';
-                eventModal.show();
-            },
-
-            // 3. ระบบ Click ช่องว่าง (เพิ่มงานใหม่)
-            dateClick: function(info) {
-                document.getElementById('inputDate').value = info.dateStr;
-                document.getElementById('displayDate').innerText = `(${info.dateStr})`;
-                // เคลียร์ฟอร์มเก่า
-                document.getElementById('inputTitle').value = "";
-                document.getElementById('inputAssignee').value = "";
-                document.getElementById('inputDesc').value = "";
-                
+        calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+            initialView: 'dayGridMonth', locale: 'th',
+            headerToolbar: { left: 'title', right: 'prev,next today' },
+            events: (info, success) => fetch(`${GAS_URL}?action=getEvents`).then(r => r.json()).then(success),
+            dateClick: (info) => {
+                document.getElementById('addDate').value = info.dateStr;
+                document.getElementById('addDateLabel').innerText = info.dateStr;
                 addModal.show();
+            },
+            eventClick: (info) => {
+                const p = info.event.extendedProps;
+                document.getElementById('editId').value = info.event.id;
+                document.getElementById('vTitle').innerText = info.event.title;
+                document.getElementById('vAssignee').innerText = p.assignee;
+                document.getElementById('vDesc').innerText = p.description;
+                // เตรียมข้อมูลใส่ฟอร์มเผื่อกดแก้
+                document.getElementById('eTitle').value = info.event.title;
+                document.getElementById('eAssignee').value = p.assignee;
+                document.getElementById('eDesc').value = p.description;
+                switchMode('view');
+                viewModal.show();
             }
         });
-
         calendar.render();
 
-        // 4. จัดการปุ่มบันทึกข้อมูล
-        document.getElementById('btnSubmit').onclick = function() {
-            const btn = this;
-            const title = document.getElementById('inputTitle').value;
-            const date = document.getElementById('inputDate').value;
-            const assignee = document.getElementById('inputAssignee').value;
-            const desc = document.getElementById('inputDesc').value;
-
-            if(!title.trim()) {
-                alert("กรุณาใส่ชื่อหัวข้องานครับ");
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerText = "กำลังบันทึกข้อมูล...";
-
-            const url = `${GAS_WEB_APP_URL}?action=addEvent&title=${encodeURIComponent(title)}&date=${date}&assignee=${encodeURIComponent(assignee)}&description=${encodeURIComponent(desc)}`;
-
-            fetch(url, { mode: 'no-cors' })
-                .then(() => {
-                    addModal.hide();
-                    btn.disabled = false;
-                    btn.innerText = "บันทึกข้อมูล";
-                    calendar.refetchEvents(); // โหลดปฏิทินใหม่ให้เห็นงานที่เพิ่งแอด
-                })
-                .catch(err => {
-                    alert("เกิดข้อผิดพลาดในการเชื่อมต่อ");
-                    btn.disabled = false;
-                    btn.innerText = "บันทึกข้อมูล";
-                });
+        // บันทึกใหม่
+        document.getElementById('btnSave').onclick = function() {
+            callApi('addEvent', {
+                title: document.getElementById('aTitle').value,
+                assignee: document.getElementById('aAssignee').value,
+                description: document.getElementById('aDesc').value,
+                date: document.getElementById('addDate').value
+            }, addModal);
         };
-    });
-</script>
 
+        // แก้ไข
+        document.getElementById('btnUpdate').onclick = function() {
+            callApi('updateEvent', {
+                id: document.getElementById('editId').value,
+                title: document.getElementById('eTitle').value,
+                assignee: document.getElementById('eAssignee').value,
+                description: document.getElementById('eDesc').value
+            }, viewModal);
+        };
+
+        // ลบ
+        document.getElementById('btnDelete').onclick = function() {
+            if(confirm("ยืนยันการลบโน้ตนี้?")) {
+                callApi('deleteEvent', { id: document.getElementById('editId').value }, viewModal);
+            }
+        };
+
+        document.getElementById('btnGoEdit').onclick = () => switchMode('edit');
+    });
+
+    function switchMode(mode) {
+        document.getElementById('viewMode').style.display = mode === 'view' ? 'block' : 'none';
+        document.getElementById('editMode').style.display = mode === 'edit' ? 'block' : 'none';
+    }
+
+    function callApi(action, params, modal) {
+        const query = new URLSearchParams({action, ...params}).toString();
+        fetch(`${GAS_URL}?${query}`, { mode: 'no-cors' }).then(() => {
+            modal.hide();
+            calendar.refetchEvents();
+        });
+    }
+</script>
 </body>
 </html>
